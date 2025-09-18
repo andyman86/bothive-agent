@@ -1,16 +1,15 @@
 import OpenAI from "openai";
 import { NextRequest } from "next/server";
 
-// Uses your Vercel env var: OPENAI_API_KEY
+// reads OPENAI_API_KEY from your env (Vercel project settings)
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({} as any));
 
-    // Accept body.messages (array of {role, content}), or default prompt
     const messages =
-      Array.isArray(body?.messages) && body.messages.length
+      Array.isArray(body?.messages) && body.messages.length > 0
         ? body.messages
         : [{ role: "user", content: "Say hello" }];
 
@@ -31,7 +30,8 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Optional quick ping for sanity checks
+// quick ping to verify route is wired
 export async function GET() {
-  return Response.json({ ok: true, info: "POST to this endpoint with {messages}" });
+  return Response.json({ ok: true, info: "POST {messages} to this endpoint" });
 }
+
