@@ -10,9 +10,7 @@ export default function Home() {
     const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [{ role: 'user', content: input || 'Say hi quickly' }],
-      }),
+      body: JSON.stringify({ messages: [{ role: 'user', content: input || 'Say hi quickly' }] })
     });
     const reader = resp.body!.getReader();
     const decoder = new TextDecoder();
@@ -29,7 +27,7 @@ export default function Home() {
         if (!json) continue;
         try {
           const evt = JSON.parse(json);
-          if (evt.type === 'text') setLog((prev) => prev + evt.delta);
+          if (evt.type === 'text') setLog(prev => prev + evt.delta);
           if (evt.type === 'final' && evt.text) setLog(evt.text);
         } catch {}
       }
@@ -37,7 +35,7 @@ export default function Home() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui' }}>
+    <main style={{ maxWidth: 720, margin: '40px auto' }}>
       <h1>BotHive — Local Chat</h1>
       <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
         <input
