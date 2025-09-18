@@ -1,4 +1,4 @@
-export const metadata = { title: "BotHive", description: "Fast AI agent" };
+﻿export const metadata = { title: "BotHive", description: "Fast AI agent" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

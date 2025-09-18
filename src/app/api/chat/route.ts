@@ -1,8 +1,7 @@
-export const runtime = "edge";
+﻿export const runtime = "edge";
 
 export async function POST(req: Request) {
   const { messages = [] } = await req.json();
-
   const resp = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {

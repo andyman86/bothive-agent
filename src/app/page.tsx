@@ -1,9 +1,9 @@
-'use client';
+﻿\'use client\';
 import { useState } from 'react';
 
 export default function Home() {
   const [input, setInput] = useState('');
-  const [log, setLog] = useState<string>('');
+  const [log, setLog] = useState('');
 
   async function send() {
     setLog('');
@@ -19,8 +19,7 @@ export default function Home() {
       const { value, done } = await reader.read();
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
-      const parts = buffer.split('\n\n');
-      buffer = parts.pop() || '';
+      const parts = buffer.split('\\n\\n'); buffer = parts.pop() || '';
       for (const p of parts) {
         if (!p.startsWith('data:')) continue;
         const json = p.slice(5).trim();
@@ -35,19 +34,15 @@ export default function Home() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: '40px auto' }}>
-      <h1>BotHive — Local Chat</h1>
+    <main style={{ maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui' }}>
+      <h1>BotHive  Local Chat</h1>
       <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask something..."
-          style={{ flex: 1, padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
-        />
-        <button onClick={send} style={{ padding: '10px 16px', borderRadius: 8 }}>Send</button>
+        <input value={input} onChange={e=>setInput(e.target.value)} placeholder="Ask something..."
+               style={{ flex:1, padding:10, borderRadius:8, border:'1px solid #ddd' }}/>
+        <button onClick={send} style={{ padding:'10px 16px', borderRadius:8 }}>Send</button>
       </div>
-      <pre style={{ whiteSpace: 'pre-wrap', background: '#fafafa', padding: 12, borderRadius: 8, marginTop: 16 }}>
-        {log || '← type and press Send'}
+      <pre style={{ whiteSpace:'pre-wrap', background:'#fafafa', padding:12, borderRadius:8, marginTop:16 }}>
+        {log || ' type and press Send'}
       </pre>
     </main>
   );
